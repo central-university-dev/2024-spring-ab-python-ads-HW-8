@@ -1,0 +1,9 @@
+flask
+redis
+pika
+numpy
+pandas
+scikit-learn
+catboost
+scikit-uplift
+matplotlib

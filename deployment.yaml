@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  ports:
+  - port: 6379
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest
+        ports:
+        - containerPort: 6379
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service
+spec:
+  ports:
+  - port: 5672
+  selector:
+    app: rabbitmq
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:latest
+        ports:
+        - containerPort: 5672
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: modelapp-service
+spec:
+  ports:
+  - port: 5000
+  selector:
+    app: modelapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modelapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modelapp
+  template:
+    metadata:
+      labels:
+        app: modelapp
+    spec:
+      containers:
+      - name: modelapp
+        image: modelapp:latest
+        ports:
+        - containerPort: 5000
