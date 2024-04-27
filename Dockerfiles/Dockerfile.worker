@@ -1,0 +1,10 @@
+FROM python:3.8-slim
+
+# Устанавливаем рабочую директорию
+WORKDIR /worker
+COPY ./worker /worker
+COPY ./worker/requirements.txt /worker/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "consumer.py"]
